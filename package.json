@@ -1,0 +1,24 @@
+{
+  "name": "spacerun",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  },
+  "license": "MIT",
+  "description": "A 3D space-wasteland shooter with three fighters, ten pirate waves, combo scoring, and 140 BPM combat music.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nervouna/spacerun.git"
+  }
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="theme-color" content="#070b0d"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><title>SPACERUN · 深空航行</title></head>
+<body>
+<div id="game"></div>
+<div class="vignette"></div><div id="damage-flash"></div>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="SPACERUN 首页"><svg viewBox="0 0 32 32"><path d="M16 3 28 26 16 21 4 26Z"/><path d="M16 11v10"/></svg><span>SPACE<span class="brand-light">RUN</span><small>荒域回收计划</small></span></a>
+  <div class="sector"><span class="live-dot"></span> 废弃开普勒航道 <span class="slash">/</span> SECTOR 07</div>
+  <nav><button id="sound" class="icon-button" aria-label="关闭声音" title="关闭声音"><svg viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4Z"/><path id="sound-wave" d="M15 8q5 4 0 8m3-11q8 7 0 14"/></svg></button><button id="help" class="icon-button" aria-label="操作说明" title="操作说明">?</button><button id="restart" class="outline-button" title="放弃本局，返回战机选择">↻ <span>重新开始</span></button><button id="pause" class="outline-button">Ⅱ <span>暂停</span></button></nav>
+</header>
+<main id="hud" class="hud">
+  <section id="encounter-panel" class="encounter-panel"><p id="encounter-label">下一遭遇 · 3.0 KM</p><div id="pirate-health" hidden><div class="pirate-health-heading"><span>掠夺舰 · 装甲完整度</span><span id="pirate-health-value"></span></div><div class="pirate-health-track"><div id="pirate-health-fill"></div></div></div></section>
+  <section class="mission"><p class="eyebrow">SALVAGE RUN <span id="stage-number">01</span></p><h1>废土航线</h1><p class="mission-description">击败全部 10 轮海盗，完成荒域挑战。</p><div class="mission-line"></div><div class="objective"><span class="objective-symbol">◇</span><div>击败全部 10 轮海盗<small>清理围攻，争取最高得分</small></div></div><div class="route-track"><div id="route-progress"></div></div><p id="round-progress" class="round-progress">海盗击败 0 / 10</p></section>
+  <aside class="telemetry"><div class="readout"><span>本次得分 <small>SCORE</small></span><strong id="score">000000</strong></div><div id="combo" class="combo">命中间隔 ≤ 1 秒，延续连击</div><div class="small-readouts"><div><span>击碎</span><strong id="kills">00</strong></div><div><span>航程 <small>KM</small></span><strong id="distance">0.0</strong></div></div><div class="best">最佳纪录 <span id="best">000000</span></div></aside>
+  <div class="center-mark" aria-hidden="true"><i></i><span></span><i></i></div>
+  <div id="target-hitmarker" class="target-hitmarker" aria-hidden="true"><i></i><i></i><i></i><i></i><small>命中</small></div><div id="damage-direction" class="damage-direction" aria-hidden="true"><span>▼</span></div><div id="player-hit-label" class="player-hit-label" hidden></div>
+  <div id="status" class="flight-status"><span class="live-dot"></span><span id="status-text">等待出击</span></div>
+  <section class="ship-panel"><p class="eyebrow">机体状态 <span id="ship-model">SR–A</span></p><div class="shield-title"><span>护盾完整度</span><strong id="shield-value">100<small>%</small></strong></div><div class="shield-bars" id="shield-bars"></div><div class="boost-title"><span>推进器能量</span><span id="boost-value">100%</span></div><div class="boost-track"><div id="boost-fill"></div></div><p class="ship-label"><span class="live-dot"></span> 双引擎系统在线</p></section>
+  <section class="speed-panel"><div class="speed"><strong id="speed">0</strong><span>KM / H</span></div><div class="speed-line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span id="engine-mode">巡航模式</span></section>
+  <section class="radar-panel"><div class="radar"><canvas id="radar" width="180" height="180"></canvas><span class="radar-center">▲</span></div><div class="radar-caption"><span class="live-dot"></span> 近域扫描 <span>2.5 KM</span></div></section>
+</main>
+<div id="departure" class="departure" aria-hidden="true"><span>KEPLER EXCLUSION ZONE</span><strong>穿越荒域</strong><small><b id="launch-ship"></b> · 10 轮海盗挑战</small></div>
+<div id="launch" class="launch-panel"><span class="eyebrow">选择你的战机</span><div id="fighter-options" class="fighter-options" role="group" aria-label="选择战机"></div><p id="selected-fighter"></p><button id="start">开始航行 <span>↗</span></button><p>按 Enter 出击</p></div>
+<footer><div class="controls"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 飞行方向</span><span><kbd class="wide">SPACE</kbd> 开火</span><span><kbd class="wide">SHIFT</kbd> 加速</span><span><kbd>ESC</kbd> 暂停</span></div><span id="music-label" class="footer-note">♪ Orbital Graveyard</span></footer>
+<div id="overlay" class="overlay" hidden><div class="dialog"><p class="eyebrow" id="dialog-kicker">FLIGHT PAUSED</p><h2 id="dialog-title">航行已暂停</h2><p id="dialog-description">深呼吸，星空会等你。</p><div id="results" hidden></div><div id="help-content" hidden><p><kbd>W</kbd> 向上　<kbd>S</kbd> 向下　<kbd>A</kbd> 向左　<kbd>D</kbd> 向右</p><p><kbd>SPACE</kbd> 按住连续开火　<kbd>SHIFT</kbd> 按住加速</p><p>滚轮调整镜头远近，按住鼠标左键拖动观察角度。松手后视角回中。</p><p>截击机双炮连射，重装机三连发，突击机持续光束。<br>小行星按大小计分，海盗命中得分随武器伤害变化。<br>命中间隔不超过 1 秒，连击倍率每击乘 1.12，最高 32 倍。<br>受击扣分并中断连击，分数最低为 0。碰撞损失 25% 护盾。<br>每 3 km 加入一艘海盗，可同时围攻。炮口充能后发射弹幕。<br>第三轮起随机变向，第五轮起提速，第八轮起发射三排弹幕。<br>击败海盗获得赏金，恢复 20% 护盾。<br>第十轮在 30 km 出现。击败全部 10 艘海盗后通关，结算最终得分。<br>「重新开始」放弃本局，返回选机，不记录本局积分。<br>松开 Shift 恢复能量，Esc 暂停或继续航行。</p></div><button id="resume" class="primary-button">继续航行 ↗</button><button id="dialog-restart" class="hangar-button" hidden>重新开始</button></div></div>
+<script type="module" src="/src/main.js"></script>
+</body></html>
